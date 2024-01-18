@@ -13,6 +13,13 @@
 
 <link rel="icon" type="image/x-icon" href="icons8-book-64.png">
 
+<link rel="stylesheet" href="resources/style/allCust.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 
 <style>
   .toast {
@@ -194,7 +201,7 @@
           </ul>
 
         </div>
-        <div class="ml-auto">
+        <div  class="ml-auto">
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
@@ -215,8 +222,8 @@
           </div>
         </nav>
         <h1 style="text-align: center; color:#5543ca; ;">All Customers</h1>
-        <div class="container">
-          <div class="row" id="customer-list" >
+        <!-- <div class="container"> -->
+          <div style="border-width: 100px;" class="row" id="customer-list" >
               <!-- Customer information will be displayed here -->
           </div>
       </div>
@@ -233,17 +240,30 @@ function fetchCustomers() {
             customers.forEach(function (customer) {
                 // Create a div for each customer
                 const customerDiv = document.createElement('div');
-                customerDiv.classList.add('col-md-3', 'mb-4'); // Add Bootstrap classes
-
+                customerDiv.classList.add('col-md-3', 'mb-4', 'card-custom'); 
+              
                 // Display customer information
                 const customerInfo = `
-                    <div class="card" style="width: 18rem;border-color: #5543ca;">
-                        <div class="card-body">
-                            <h5 class="card-title">${customer.name}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">customer city: ${customer.city} 
-                                customer age: ${customer.age}</h6>
-                        </div>
-                    </div>
+                <div class="container" >
+	<div class="row" >
+                <div class="col-md-4 Services-tab item" >
+			<div class="folded-corner service_tab_1">
+				<div class="text">
+					<i class="fa fa-user fa-5x fa-icon-image"></i>
+						<p class="item-title">
+							<h3> ${customer.name}</h3>
+						</p>
+					<p>
+						customer city: ${customer.city} 
+                                customer age: ${customer.age}
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+       
                 `;
 
                 customerDiv.innerHTML = customerInfo;
@@ -259,6 +279,15 @@ function fetchCustomers() {
 
 // Call the fetchCustomers function when the page loads
 fetchCustomers();
+
+
+// <div class="card" style="width: 18rem;border-color: #5543ca;">
+//                         <div class="card-body">
+//                             <h5 class="card-title">${customer.name}</h5>
+//                             <h6 class="card-subtitle mb-2 text-muted">customer city: ${customer.city} 
+//                                 customer age: ${customer.age}</h6>
+//                         </div>
+//                     </div>
 
 </script>
 <script src="resources/scripts/nav.js"></script>
