@@ -95,15 +95,15 @@ cur.execute('''
 
 # Convert date strings to Unix timestamps and insert sample user data
 # user_entries = [
-#     ("user1", "password1", "Alice", "To Kill a Mockingbird", '2024-01-08', '2024-01-18'),
+#     ("alice1", "password1", "Alice","user"),
 #     ("user2", "password2", "Bob", "The Hobbit", '2024-01-09', '2024-01-14'),
 #     ("user3", "password3", "Charlie", "The Great Gatsby", '2024-01-10', '2024-01-12'),
 #     ("user4", "password4", "David", "Harry Potter and the Sorcerer's Stone", '2024-01-11', '2024-01-21'),
 #     ("user5", "password5", "Eve", "The Hunger Games", '2024-01-12', '2024-01-14')]
 
 # cur.executemany('''
-#     INSERT INTO users (username, password, customer_name, book_name, loandate, returndate)
-#     VALUES (?, ?, ?, ?, ?, ?)
+#     INSERT INTO users (username, password, customer_name,role)
+#     VALUES (?, ?, ?, ?)
 # ''', user_entries)
 
 # Create the 'loanLate' table with the specified columns
