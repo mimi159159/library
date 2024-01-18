@@ -52,7 +52,7 @@ You can install these dependencies using pip:
 ## Getting Started
 
 1. Clone this repository:
-git clone https://github.com/yourusername/library-management-system.git
+git clone https://github.com/mimi159159/library.git
 cd library-management-system
 
 
