@@ -217,10 +217,10 @@
           </div>
         </nav>
         <h1>All Loans</h1>
-        <div class="container">
+        <!-- <div class="container"> -->
 
         
-<div id="loans-list" >
+<div id="loans-list" class="row" style="border-width: 100px;">
     <!-- <div class="row" id="loan-row"> -->
         <!-- Your cards will be added here dynamically -->
     </div>
@@ -239,30 +239,49 @@
                         loans.forEach(function (loan) {
                             
                             const loansDiv = document.createElement('div')
+                            loansDiv.classList.add('col-md-3', 'mb-4', 'card-custom')
                             
     
 
         
                            
                             const loansInfo = `
-                            <div class="container bootstrap snippets bootdeys">
-<div class="row" >
-                            <div class="col-md-4 col-sm-6 content-card >
-        <div class="card-big-shadow">
-            <div class="card card-just-text" data-background="color" data-color="purple" data-radius="none">
-                <div class="content">
-                    <h6 class="category">book:${loan.book_name} </h6>
-                    <h4 class="title"><a href="#">customer:${loan.customer_name} </a></h4>
-                    <p class="description">    Book id: ${loan.bookID}
-    customer id: ${loan.custID}
-    Loan Date: ${new Date(loan.loandate).toLocaleDateString()}</p>
-    Return Date: ${loan.returndate ? new Date(loan.returndate).toLocaleDateString() : 'N/A'}</p>
-                </div>
+
+                            <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+
+<div class="col-md-5">
+							<div class="card">
+								<div class="card-body text-center">
+									<div>
+										<img src="book.png" width= "90px" class="img-lg rounded-circle mb-4" alt="profile image">
+										<h4>${loan.book_name}</h4>
+										<p class="text-muted mb-0">customer:${loan.customer_name}</p>
+									</div>
+									<p class="mt-2 card-text">
+                    customer id: ${loan.custID}
+                    Book id: ${loan.bookID}
+                                                  Loan Date: ${new Date(loan.loandate).toLocaleDateString()}
+                                                  Return Date: ${loan.returndate ? new Date(loan.returndate).toLocaleDateString() : 'N/A'} 
+									</p>
+							
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+							</div>
+						</div>
 
 
-    
 
-`;
+
+
+
+
+`
 
                             loansDiv.innerHTML = loansInfo;
     

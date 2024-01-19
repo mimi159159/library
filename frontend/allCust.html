@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="resources/style/nav.css">
+    <link rel="stylesheet" href="resources/style/nav2.css">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,6 +21,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 <style>
   .toast {
     position: fixed;
@@ -221,7 +226,7 @@
               </div>
           </div>
         </nav>
-        <h1 style="text-align: center; color:#5543ca; ;">All Customers</h1>
+        <h1 style="text-align: center; color:#000000; ;">All Customers</h1>
         <!-- <div class="container"> -->
           <div style="border-width: 100px;" class="row" id="customer-list" >
               <!-- Customer information will be displayed here -->
@@ -244,25 +249,39 @@ function fetchCustomers() {
               
                 // Display customer information
                 const customerInfo = `
-                <div class="container" >
-	<div class="row" >
-                <div class="col-md-4 Services-tab item" >
-			<div class="folded-corner service_tab_1">
-				<div class="text">
-					<i class="fa fa-user fa-5x fa-icon-image"></i>
-						<p class="item-title">
-							<h3> ${customer.name}</h3>
-						</p>
-					<p>
-						customer city: ${customer.city} 
-                                customer age: ${customer.age}
-					</p>
-				</div>
-			</div>
-		</div>
+                <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
 
-	</div>
-</div>
+<div class="col-md-5">
+							<div class="card">
+								<div class="card-body text-center">
+									<div>
+										<img src="user.png" class="img-lg rounded-circle mb-4" alt="profile image">
+										<h4> ${customer.name}</h4>
+								
+									</div>
+									<p class="mt-2 card-text">
+                    customer city: ${customer.city} 
+                                customer age: ${customer.age}
+									</p>
+								
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
        
                 `;
 
@@ -281,14 +300,26 @@ function fetchCustomers() {
 fetchCustomers();
 
 
-// <div class="card" style="width: 18rem;border-color: #5543ca;">
-//                         <div class="card-body">
-//                             <h5 class="card-title">${customer.name}</h5>
-//                             <h6 class="card-subtitle mb-2 text-muted">customer city: ${customer.city} 
-//                                 customer age: ${customer.age}</h6>
-//                         </div>
-//                     </div>
 
+// <div class="container" >
+// 	<div class="row" >
+//                 <div class="col-md-4 Services-tab item" >
+// 			<div class="folded-corner service_tab_1">
+// 				<div class="text">
+// 					<i class="fa fa-user fa-5x fa-icon-image"></i>
+// 						<p class="item-title">
+// 							<h3> ${customer.name}</h3>
+// 						</p>
+// 					<p>
+// 						customer city: ${customer.city} 
+//                                 customer age: ${customer.age}
+// 					</p>
+// 				</div>
+// 			</div>
+// 		</div>
+
+// 	</div>
+// </div>
 </script>
 <script src="resources/scripts/nav.js"></script>
 <script src="resources/scripts/main.js"></script>

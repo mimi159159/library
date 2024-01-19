@@ -450,68 +450,6 @@ def returnBook():
     db.session.commit()
 
     return jsonify({'msg': "Book returned successfully"})
-# @app.route('/returnBook', methods=['POST'])
-# @jwt_required() 
-# def returnBook():
-#     print('im here')
-#     customer_name = request.form.get("customer_name")
-#     book_name = request.form.get("book_name")
-    
-#     print('>>>', customer_name, book_name)
-
-#     # Find the customer by name
-#     customer = customers.query.filter(func.lower(customers.name) == func.lower(customer_name)).first()
-#     if not customer:
-#         return jsonify({'error': "Customer not found"})
-    
-#     # Find the book by name
-#     book = books.query.filter(func.lower(books.name) == func.lower(book_name)).first()
-#     if not book:
-#         return jsonify({'error': "Book not found"})
-    
-#     # Check if the book is loaned to the customer
-#     loan = loans.query.filter(
-#         (loans.custID == customer.id) & (loans.bookID == book.id) & (loans.returndate.is_(None))
-#     ).first()
-    
-#     if not loan:
-#         return jsonify({'error': "Book is not loaned to the customer"})
-    
-#     loan.loandate = datetime.combine(loan.loandate, datetime.min.time())
-    
-#     # Calculate if the return is late based on the book type
-#     current_date = datetime.now()
-#     max_loan_days = {
-#         1: 10,
-#         2: 5,
-#         3: 2
-#     }
-#     max_return_date = loan.loandate + timedelta(days=max_loan_days.get(book.type, 0))
-    
-#     if current_date > max_return_date:
-#         # The return is late, create a late loan record
-#         late = late_loan(
-#             custID=customer.id,
-#             bookID=book.id,
-#             loandate=loan.loandate,
-#             returndate=current_date
-#         )
-#         db.session.add(late)
-        
-#         # Update the original loan record with the return date
-#         late.returndate = current_date
-        
-#         db.session.commit()
-        
-#         # Include a notice that it was a late return in the response
-#         return jsonify({'msg': "Book returned late! Late loan record created."})
-    
-#     # Mark the original loan as returned with the current date
-#     loan.returndate = current_date
-
-#     db.session.commit()
-    
-#     return jsonify({'msg': "Book returned successfully"})
 
 
 @app.route('/searchCust', methods=['POST'])
@@ -559,15 +497,60 @@ def profile():
     current_user = users.query.get(current_user_id)
 
     if current_user:
-        user_info = [{
+        user_info = {
             "id": current_user.id,
             "customer_name": current_user.customer_name,
             "username": current_user.username,
-            "role": current_user.role
-        }]
-        return jsonify(user_info)
+            "role": current_user.role,
+            # "customers_info": []
+        }
+
+        # Retrieve customer information for the current user
+        cust = customers.query.filter(func.lower(customers.name) == func.lower(current_user.customer_name)).first()
+
+        if cust:
+            customer_info = {
+                "city": cust.city,
+                "age": cust.age,
+                # "loans_info": []
+            }
+            print(">>>>>>>>>>>>>>>>>>>>>", customer_info)
+            # Retrieve loaned books information for the customer
+            loans1 = loans.query.filter_by(custID=cust.id).all()
+
+            for loan in loans1:
+                book = books.query.get(loan.bookID)
+                if book:
+                    loan_info = {
+                        "book_name": book.name,
+                        "loan_date": loan.loandate.strftime("%Y-%m-%d"),
+                        "return_date": loan.returndate.strftime("%Y-%m-%d") if loan.returndate else None,
+                    }
+                    # customer_info["loans_info"].append(loan_info)
+            #         print(">>>>>>>>>>>>>>>>>>>>>", customer_info)
+            # user_info["customers_info"].append(customer_info)
+            print(">>>>>>>>>>>>>>>>>>>>>", user_info)
+        return jsonify(user_info, loan_info, customer_info)
     else:
         return jsonify({"error": "User not found"}), 404
+
+
+# @app.route('/profile')
+# @jwt_required()
+# def profile():
+#     current_user_id = get_jwt_identity()
+#     current_user = users.query.get(current_user_id)
+
+#     if current_user:
+#         user_info = [{
+#             "id": current_user.id,
+#             "customer_name": current_user.customer_name,
+#             "username": current_user.username,
+#             "role": current_user.role
+#         }]
+#         return jsonify(user_info)
+#     else:
+#         return jsonify({"error": "User not found"}), 404
 @app.errorhandler(NoAuthorizationError)
 @app.errorhandler(ExpiredSignatureError)
 @app.errorhandler(InvalidTokenError)
