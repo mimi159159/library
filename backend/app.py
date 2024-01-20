@@ -32,9 +32,12 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 db = SQLAlchemy(app)
+app.secret_key = 'its_a_secret'
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
-app.secret_key = 'its_a_secret'
+
+
+
 
 # Get the directory where app.py is located
 app_directory = os.path.dirname(__file__)
@@ -55,9 +58,9 @@ class customers(db.Model):
     age = db.Column(db.Integer, nullable=False)
     loans = db.relationship('loans', backref='customers', lazy=True)
 
+
 # Define Book model
 class books(db.Model):
-    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255), nullable=False)
@@ -69,8 +72,8 @@ class books(db.Model):
 # Define Loan model
 class loans(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    custID = db.Column(db.Integer, ForeignKey('customers.id'), primary_key=True)
-    bookID = db.Column(db.Integer, ForeignKey('books.id'), primary_key=True)
+    custID = db.Column(db.Integer, ForeignKey('customers.id'))
+    bookID = db.Column(db.Integer, ForeignKey('books.id'))
     loandate = db.Column(Date, nullable=False)  
     returndate = db.Column(Date , nullable=True) 
 
@@ -83,6 +86,7 @@ class users(db.Model):
     customer_name = db.Column(db.String(255),ForeignKey('customers.name'), nullable=False)
     role = db.Column(db.String(255), nullable=False)
     customers = db.relationship('customers', backref='users', lazy=True)
+
 
 class late_loan(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -125,6 +129,7 @@ def token_required(f):
 
     return decorated
 
+
 @app.route('/register', methods=['POST'])
 def register():
     username = request.form['username']
@@ -133,11 +138,9 @@ def register():
     customer_name = request.form.get("customer_name")
 
     if not customer_name or not username or not password  :
-        return jsonify({'error': 'all fildes is required, please fill out all the forms'}), 400
-
+        return jsonify({'error': 'all fields is required, please fill out all the forms'}), 400
 
     customer = customers.query.filter(func.lower(customers.name) == func.lower(customer_name)).first()
-
 
     # Check if the username is already taken
     existing_user = users.query.filter_by(username=username).first()
@@ -145,28 +148,27 @@ def register():
         return jsonify({'message': 'Username is already taken'}), 400
 
     if customer:
-    # Hash and salt the password using Bcrypt
-      hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        # Hash and salt the password using Bcrypt
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
+        # Create a new user and add to the database
+        new_user = users(username=username, password=hashed_password, customer_name=customer_name, role= role)
+        db.session.add(new_user)
+        db.session.commit()
 
-    # Create a new user and add to the database
-      new_user = users(username=username, password=hashed_password, customer_name=customer_name, role= role)
-      db.session.add(new_user)
-      db.session.commit()
-
-
-      return jsonify({'message': 'User created successfully'}), 201
+        return jsonify({'message': 'User created successfully'}), 201
     
     else:
-        return jsonify({"customer not found or does not exist"})
+        return jsonify({'message': "customer not found or does not exist"})
+
+
 @app.route('/login', methods=['POST'])
 def login():
-    data =request.get_json()
+    data = request.get_json()
     # # print( data["username"])
     username = data["username"]
     password = data["password"]
     
-
     # username = request.form['username']
     # password = request.form['password']
     # Check if the user exists
@@ -181,11 +183,10 @@ def login():
     else:
         return jsonify({'message': 'Invalid username or password'})
 
+
 @app.route('/uploads/<filename>', methods=['GET'])
 def get_image(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-
 
 
 @app.route('/allBooks', methods=['GET'] )
@@ -200,7 +201,6 @@ def allBooks():
     return jsonify(allBooks)
 
 
-
 @app.route('/allCust')
 def allCust():
     allCust= [{"id":cust.id,
@@ -209,21 +209,7 @@ def allCust():
             "age":cust.age } for cust in customers.query.all() ]
     
     return jsonify(allCust)
-# @app.route('/allLoans')
-# def allLoans():
-#     loan_records = loans.query.all()
-#     for loan in loan_records:
-#         # Fetch the customer and book names using the IDs
-#         customer = customers.query.get(loan.custID)
-#         book = books.query.get(loan.bookID)
 
-#     allLoans=[{"custID":loan.custID,
-#             "bookID":loan.bookID,
-#             "loandate": loan.loandate,
-#             "returndate":loan.returndate,
-#              } for loan in loans.query.all() ]
-    
-#     return jsonify(allLoans)
 @app.route('/allLoans')
 def allLoans():
     allLoans = []
@@ -278,15 +264,10 @@ def allLateLoan():
         allLateLoan.append(late_info)
 
     return jsonify(allLateLoan)
+
+
 @app.route('/addCust', methods=['POST'])
-@jwt_required()  
-
 def addCust():
-    # current_user_id = get_jwt_identity()
-    # current_user = users.query.get(current_user_id)
-
-    # if current_user.role != 'Admin':
-    #     return jsonify({'error': 'Only admin users can access this function'}), 403
     name = request.form.get("name")
     city = request.form.get("city")
     age = request.form.get("age")
@@ -300,7 +281,10 @@ def addCust():
         age=age
     )
     db.session.add(new_cust)
+    print('>>>>>>>>>>>>>>>>>>>>>before commit')
     db.session.commit()
+    print('>>>>>>>>>>>>>>>>>>>>>after commit')
+
     return jsonify({'msg': "added successfully" })
 
 @app.route('/addBook', methods=['POST'])
@@ -535,22 +519,7 @@ def profile():
         return jsonify({"error": "User not found"}), 404
 
 
-# @app.route('/profile')
-# @jwt_required()
-# def profile():
-#     current_user_id = get_jwt_identity()
-#     current_user = users.query.get(current_user_id)
 
-#     if current_user:
-#         user_info = [{
-#             "id": current_user.id,
-#             "customer_name": current_user.customer_name,
-#             "username": current_user.username,
-#             "role": current_user.role
-#         }]
-#         return jsonify(user_info)
-#     else:
-#         return jsonify({"error": "User not found"}), 404
 @app.errorhandler(NoAuthorizationError)
 @app.errorhandler(ExpiredSignatureError)
 @app.errorhandler(InvalidTokenError)
