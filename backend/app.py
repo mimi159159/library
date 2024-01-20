@@ -281,17 +281,17 @@ def addCust():
         age=age
     )
     db.session.add(new_cust)
-    print('>>>>>>>>>>>>>>>>>>>>>before commit')
+ 
     db.session.commit()
-    print('>>>>>>>>>>>>>>>>>>>>>after commit')
+ 
 
     return jsonify({'msg': "added successfully" })
+
 
 @app.route('/addBook', methods=['POST'])
 @jwt_required()  
 def addBook():
-      print(request.files)
-      print(request.form)
+    
     # if request.method == 'POST':
       name = request.form.get("name")
       author = request.form.get("author")
@@ -307,7 +307,7 @@ def addBook():
                    return jsonify({'error': "Book already exists"})
     #   if 'image' in request.files:
       image_file= None
-      image_path = request.files['image']
+      image_path = request.files.get('image', None)
       print("image_path:", image_path)
       if image_path and allowed_file(image_path.filename):
                 print("inside if")
