@@ -90,7 +90,8 @@ The application should now be running locally at http://localhost:5000.
 Please refer to the `app.py` file for detailed information on each endpoint's functionality and request/response format.
 
 ## unit test
-- file name= test2.py 
+- file name= test2.py
+- to run test : py test2.py + py app.py 
 - run together with app.py 
 
 
