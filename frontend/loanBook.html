@@ -14,7 +14,7 @@
 <script src="resources/scripts/main.js"></script>
 <link rel="stylesheet" href="resources/style/loan.css">
 <script src="resources/scripts/loan.js"></script>
-<link rel="icon" type="image/x-icon" href="icons8-book-64.png">
+<link rel="icon" type="image/x-icon" href="resources/images/icons8-book-64.png">
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -228,8 +228,8 @@
                   <div class="card">
                       <form id="loan-book-form" method="post" class="form-card" onsubmit="event.preventDefault()">
                           <div class="row justify-content-between text-left">
-                              <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">customer name<span class="text-danger"> *</span></label> <input type="text" id="customer" name="customer" required  onblur="validate(1)"> </div>
-                              <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">book name<span class="text-danger"> *</span></label> <input type="text" id="book" name="book" required onblur="validate(2)"> </div>
+                              <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">customer name<span class="text-danger"> *</span></label> <input type="text" id="customer" name="customer" placeholder="customer name" required  onblur="validate(1)"> </div>
+                              <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">book name<span class="text-danger"> *</span></label> <input type="text" id="book" name="book" placeholder="book name" required onblur="validate(2)"> </div>
                           </div>                 
                           <div class="row justify-content-end">
                               <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">loan the book</button> </div>

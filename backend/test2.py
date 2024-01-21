@@ -1,7 +1,7 @@
 from datetime import timedelta
 import random
 import requests
-
+import datetime
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
 
@@ -194,12 +194,71 @@ def test_search_customer():
     # print(response.json())   
 
 
-def test_loan_book():
-    pass
+def test_loan_and_return_book():
+        
+        customer_name = random_customer_name()
+        book_name = random_book_name
+        author_name = random_author_name
+        year =  random_year
+        with app.app_context():
+            db.session.add(customers(name=customer_name, age=123, city='city123'))
+            db.session.add(books(name=book_name,author =author_name , year_published =year ))
+            db.session.commit()
+        response = requests.post(
+        url=f'{base_url}/loanBook', 
+        headers={
+            'Authorization': 'Bearer ' + access_token_for_tests
+        },
+        data={
+         'customer' : customer_name,
+         'book' : book_name
+          } )
+        
+        with app.app_context():
+            book = books.query.filter((books.name == book_name), (books.author == author_name)).first()
+            loan = loans.query.filter((loans.bookID == book.id)).first()
+        loan_date = loan.loandate 
+        max_loan_days = {
+        1: 10,
+        2: 5,
+        3: 2}
+        max_loan_days_for_book = max_loan_days.get(book.type, 0)
+    
+    # Calculate the maximum return date based on the loan date and book type
+        max_return_date = loan_date + timedelta(days=max_loan_days_for_book)
+
+    # Generate a random number of days between 0 and 30 (within a month)
+        random_days = random.randint(0, 30)
+
+    # Calculate the random return date within a month from the loan date
+        random_return_date = loan_date + timedelta(days=random_days)
+
+    # Ensure that the random return date is not greater than the maximum allowed return date
+        if random_return_date > max_return_date:
+            random_return_date = max_return_date
+
+        response2 = requests.post(
+            url=f'{base_url}/returnBook',
+            headers={
+            'Authorization': 'Bearer ' + access_token_for_tests
+        },
+        data={
+            'customer_name': customer_name,
+            'book_name': book_name,
+            'return_date': random_return_date.strftime('%Y-%m-%d')
+        })
+
+        if random_return_date > max_return_date:
+          with app.app_context():
+            db.session.add(late_loan(custID=loan.custID, bookID=loan.bookID, loandate=loan_date, returndate=random_return_date))
+
+        assert response2.status_code == 200
+        
+        assert response.status_code == 200
 
 def main():
     test_funcs = [test_add_customer, test_register, test_login,test_all_books,test_all_cust,test_all_lateLoan,test_all_loans,
-                  test_add_book,test_search_book, test_search_customer]
+                  test_add_book,test_search_book, test_search_customer,test_loan_and_return_book]
 
     for func in test_funcs:
         func()

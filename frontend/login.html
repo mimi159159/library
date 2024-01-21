@@ -13,13 +13,18 @@
 
 <link rel="stylesheet" href="resources/style/login.css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="icons8-book-64.png">
+<link rel="icon" type="image/x-icon" href="resources/images/icons8-book-64.png">
 
 <script src="resources/scripts/main.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
   .toast {
@@ -221,48 +226,43 @@
               </div>
           </div>
         </nav>
+        <!-- ------------------------ -->
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-8">
-              <div class="card-group mb-0">
-                <div class="card p-4">
+          <div class="d-flex justify-content-center h-100">
+              <div class="card">
+                  <div class="card-header">
+                      <h3>log In</h3>
+                  </div>
                   <div class="card-body">
-                    <h1>Login</h1>
-                    <p class="text-muted">Sign In to your account</p>
-                    <div class="input-group mb-3">
-                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
                       <form id="login-form">
-                      <input type="text" class="form-control" placeholder="Username" id="username" name="username" required>
-                    </div>
-                    <div class="input-group mb-4">
-                      <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                      <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
-                    </div>
-                    <div class="row">
-                      <div class="col-6">
-                        <button type="submit" class="btn btn-primary px-4">Login</button>
-                      </div>
-                    </form>
-                      <div class="col-6 text-right">
-                      
-                      </div>
-                    </div>
+                          <div class="input-group form-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                              </div>
+                              <input type="text" class="form-control"  placeholder="username" id="username" name="username" required>
+                              
+                          </div>
+                          <div class="input-group form-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                              </div>
+                              <input type="password" class="form-control" placeholder="password" id="password" name="password" required>
+                          </div>
+                         
+                          <div class="form-group">
+                              <input type="submit" value="Login" class="btn float-right login_btn">
+                          </div>
+                      </form>
                   </div>
-                </div>
-                <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
-                  <div class="card-body text-center">
-                    <div>
-                      <h2>no account?</h2>
+                  <div class="card-footer">
+                      <div class="d-flex justify-content-center links">
+                          Don't have an account?<a href="register.html">register</a>
+                      </div>
                      
-                      <button type="button" class="btn btn-primary active mt-3"> <a href="/frontend/register.html">Register Now!</a></button>
-                    </div>
                   </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
-
+      </div>
   
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script>
@@ -318,36 +318,47 @@ loginForm.addEventListener('submit', function (event) {
 
 
 
-          // const loginForm = document.getElementById('login-form');
-  
-          // loginForm.addEventListener('submit', function (event) {
-          //     event.preventDefault();
-  
-          //     const username = document.getElementById('username').value;
-          //     const password = document.getElementById('password').value;
-  
-          //     const loginData = {
-          //         username: username,
-          //         password: password
-          //     };
-  
-          //     axios.post('http://127.0.0.1:5000/login', loginData, {
-          //         headers: {
-          //             'Content-Type': 'application/json'
-          //         }
-          //     })
-          //     .then(function (response) {
-          //         const accessToken = response.data.access_token;
-          //         sessionStorage.setItem('access_token', accessToken);
-          //         console.log('Access token stored in sessionStorage:', accessToken);
-          //         alert('Login successful');
-          //         loginForm.reset();
-          //     })
-          //     .catch(function (error) {
-          //         console.error('Error logging in:', error);
-          //     });
-          // });
-
+// <div class="container">
+//           <div class="row justify-content-center">
+//             <div class="col-md-8">
+//               <div class="card-group mb-0">
+//                 <div class="card p-4">
+//                   <div class="card-body">
+//                     <h1>Login</h1>
+//                     <p class="text-muted">Sign In to your account</p>
+//                     <div class="input-group mb-3">
+//                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
+//                       <form id="login-form">
+//                       <input type="text" class="form-control" placeholder="Username" id="username" name="username" required>
+//                     </div>
+//                     <div class="input-group mb-4">
+//                       <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+//                       <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+//                     </div>
+//                     <div class="row">
+//                       <div class="col-6">
+//                         <button type="submit" class="btn btn-primary px-4">Login</button>
+//                       </div>
+//                     </form>
+//                       <div class="col-6 text-right">
+                      
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+//                   <div class="card-body text-center">
+//                     <div>
+//                       <h2>no account?</h2>
+                     
+//                       <button type="button" class="btn btn-primary active mt-3"> <a href="/frontend/register.html">Register Now!</a></button>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
 
 
       </script>

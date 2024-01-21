@@ -360,27 +360,27 @@ def loanBook():
         returndate=None  # Set returndate to None to indicate the book has not been returned
     )
     
-    print("returndate before insert:", new_loan.returndate)
+    
     db.session.add(new_loan)
     db.session.commit()
-    print("returndate after insert:", new_loan.returndate)
+    
 
     return jsonify({'msg': "Book loaned successfully"})
 
 @app.route('/returnBook', methods=['POST'])
 @jwt_required()
 def returnBook():
-    print('im here')
+    
     customer_name = request.form.get("customer_name")
     book_name = request.form.get("book_name")
     return_date_str = request.form.get("return_date")
 
     # Parse the return date string to a datetime object
-    try:
-        return_date = datetime.strptime(return_date_str, "%Y-%m-%d")
-    except ValueError:
-        return jsonify({'error': "Invalid return date format. Please use YYYY-MM-DD."})
-
+    # try:
+    #     return_date = datetime.strptime(return_date_str, "%Y-%m-%d")
+    # except ValueError:
+    #     return jsonify({'error': "Invalid return date format. Please use YYYY-MM-DD."})
+    return_date = datetime.strptime(return_date_str, "%Y-%m-%d")
     # Find the customer by name
     customer = customers.query.filter(func.lower(customers.name) == func.lower(customer_name)).first()
     if not customer:
@@ -388,6 +388,7 @@ def returnBook():
 
     # Find the book by name
     book = books.query.filter(func.lower(books.name) == func.lower(book_name)).first()
+    
     if not book:
         return jsonify({'error': "Book not found"})
 
@@ -402,28 +403,31 @@ def returnBook():
     loan.loandate = datetime.combine(loan.loandate, datetime.min.time())
 
     # Calculate if the return is late based on the book type
-    current_date = datetime.now()
+    # current_date = datetime.now()
     max_loan_days = {
         1: 10,
         2: 5,
         3: 2
     }
-    max_return_date = loan.loandate + timedelta(days=max_loan_days.get(book.type, 0))
+    max_return_date = loan.loandate + timedelta(days=max_loan_days[book.type])
+    print(max_return_date)
 
-    if current_date > max_return_date:
+    if return_date > max_return_date:
+        # print(">>>>>>>>>>>>>>>>>>>> in ")
         # The return is late, create a late loan record
         late = late_loan(
             custID=customer.id,
             bookID=book.id,
             loandate=loan.loandate,
-            returndate=current_date
+            returndate=return_date
         )
         db.session.add(late)
-
-        # Update the original loan record with the return date
-        late.returndate = current_date
-
+        loan.returndate = return_date
         db.session.commit()
+        # Update the original loan record with the return date
+        
+
+        
 
         # Include a notice that it was a late return in the response
         return jsonify({'msg': "Book returned late! Late loan record created."})
@@ -498,7 +502,7 @@ def profile():
                 "age": cust.age,
                 # "loans_info": []
             }
-            print(">>>>>>>>>>>>>>>>>>>>>", customer_info)
+            # print(">>>>>>>>>>>>>>>>>>>>>", customer_info)
             # Retrieve loaned books information for the customer
             loans1 = loans.query.filter_by(custID=cust.id).all()
 
@@ -513,7 +517,7 @@ def profile():
                     # customer_info["loans_info"].append(loan_info)
             #         print(">>>>>>>>>>>>>>>>>>>>>", customer_info)
             # user_info["customers_info"].append(customer_info)
-            print(">>>>>>>>>>>>>>>>>>>>>", user_info)
+            # print(">>>>>>>>>>>>>>>>>>>>>", user_info)
         return jsonify(user_info, loan_info, customer_info)
     else:
         return jsonify({"error": "User not found"}), 404

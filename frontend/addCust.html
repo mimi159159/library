@@ -22,7 +22,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   <link rel="stylesheet" href="resources/style/add.css">
-  <link rel="icon" type="image/x-icon" href="icons8-book-64.png">
+  <link rel="icon" type="image/x-icon" href="resources/images/icons8-book-64.png">
 
   <style>
     .toast {
@@ -40,7 +40,10 @@
     .toast-success {
       background-color: green;
     }
-
+    body {
+  background-image: url(resources/images/addCust.png);
+   /* background-position: center center; */
+} 
     .toast-error {
       background-color: red;
     }
@@ -300,9 +303,9 @@
 
       // Make an Axios POST request with the access token in the Authorization header
       axios.post(`${MY_SERVER}/addCust`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        // headers: {
+        //   Authorization: `Bearer ${token}`
+        // }
       })
         .then(function (response) {
           if (response.status === 200) {

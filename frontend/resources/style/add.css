@@ -29,12 +29,25 @@
     display: block;
     width: 100%;
     height: 36px;
+    border-width: 0 0 2px 0; /* Consider increasing this to make it thicker */
+    border-color: #5543ca; /* Make sure this color stands out against the input field background */
+    background-color: rgba(255, 255, 255, 0.5); /* A subtle background for the input */
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #333; /* This should be a color that stands out against the background */
+    padding: 8px; /* Add padding to make text not touch the borders */
+  }
+  /* .contact-form .input-text {
+    display: block;
+    width: 100%;
+    height: 36px;
     border-width: 0 0 2px 0;
     border-color: #5543ca;
     font-size: 18px;
     line-height: 26px;
     font-weight: 400;
-  }
+  } */
   .contact-form .input-text:focus {
     outline: none;
   }
