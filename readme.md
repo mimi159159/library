@@ -89,6 +89,13 @@ The application should now be running locally at http://localhost:5000.
 
 Please refer to the `app.py` file for detailed information on each endpoint's functionality and request/response format.
 
+## unit test
+- file name= test2.py 
+- run together with app.py 
+
+
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
