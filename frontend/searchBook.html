@@ -27,7 +27,7 @@
 <style>
   body {
     min-height: 110vh;
-    background-image: url(https://images.pexels.com/photos/768125/pexels-photo-768125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-image: url(resources/images/searchBook.png);
    
     background-position: center center;
     
@@ -54,7 +54,11 @@
     .toast-error {
       background-color: red;
     }
-
+button {
+  background-color: #6c5ce7 !important
+   ; border-color: #6c5ce7 !important ;
+   color: black !important;
+}
 </style>
 
 
@@ -254,57 +258,37 @@
           <!-- Card HTML here -->
           <!-- ... your card HTML ... -->
       </div>
-        <!-- <div class="container justify-content-center">
-    
-          <div class="row">
-      
-             <div class="col-md-8">
-                 
-                 <div class="input-group mb-3">
-        <input type="text" class="form-control input-text"  id="book_name" placeholder="Enter book name" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button style="font-size:small ;" onclick="searchBook()" class="btn btn-outline-warning btn-lg" type="button"> search<i class="fa fa-search"></i></button>
-        </div>
-      </div>
-                 
-             </div>        
-              
-          </div>
-          
-          
-      </div>
-        <div>
-            <label for="book_name">Book Name:</label>
-            <input type="text" id="book_name" placeholder="Enter book name">
-            <button onclick="searchBook()">Search</button>
-        </div> 
-        <div id="bookDetails" ></div> -->
+
 
 
 
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
-             function searchBook() {
-        const bookName = document.getElementById("book_name").value;
-        
-        // Construct the complete URL including the server address and port
-        const serverUrl = 'http://127.0.0.1:5000'; // Update with your server URL
-        const searchBookUrl = `${serverUrl}/searchBook`;
-        
-        // Create a FormData object and add the bookName parameter
-        const formData = new FormData();
-        formData.append('book_name', bookName);
-        
-        axios.post(searchBookUrl, formData)
-            .then(response => {
- 
-                const bookDetails = document.getElementById("bookDetails");
-                bookDetails.innerHTML = ''; // Clear previous results
-                
-                if (response.data.error) {
-                    bookDetails.innerHTML = `<p>${response.data.error}</p>`;
-                } else {
+function searchBook() {
+  const bookDetails = document.getElementById("bookDetails");
+  bookDetails.innerHTML = ''
+    const formData = new FormData();
+    formData.append("book_name", document.getElementById("book_name").value);
+    
+    // Construct the complete URL including the server address and port
+    const serverUrl = 'http://127.0.0.1:5000'; // Update with your server URL
+    const searchCustUrl = `${serverUrl}/searchBook`;
+    
+    axios.post(searchCustUrl, formData)
+        .then(response => {
+            if (response.data.error) {
+                // Displaying the error message using Toastify
+                Toastify({
+                    text: response.data.error,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF416C, #FF4B2B)",
+                    className: "toast-error"
+                }).showToast();
+            } else {
                     const book = response.data;
                     const bookId = book.id;
                     const bookName = book.name;
@@ -329,7 +313,7 @@
                         maxDays = 0; // Default to 0 if unknown book type
                 }
                     
-                    const bookHTML = `
+                  const bookHTML = `
                     <div class="container" >
         <div class="cardcontainer">
             <div class="photo">
@@ -348,38 +332,20 @@
           
         </div>
     </div>
-
-
-
-
-
-                     
-                    `;
-                    
-                    bookDetails.innerHTML = bookHTML;
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-        
-
-
-    $(document).ready(function(){
-    document.getElementById("heart").onclick = function(){
-        document.querySelector(".fa-gratipay").style.color = "#E74C3C";
-    };
-});
+    `;
+    
+                bookDetails.innerHTML = bookHTML;
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }
+ 
 
       </script>
               
-              <!-- <h2>Book Details</h2>
-              <p>ID: ${bookId}</p>
-              <p>Name: ${bookName}</p>
-              <p>Author: ${bookAuthor}</p>
-              <p>Year Published: ${bookYearPublished}</p>
-              <p>Type: ${bookType}</p> -->
+  
 <script src="resources/scripts/nav.js"></script>
 </body>
 </html>

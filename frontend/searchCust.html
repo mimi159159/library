@@ -26,7 +26,7 @@
 <style>
   body {
     min-height: 110vh;
-    background-image: url(https://images.pexels.com/photos/768125/pexels-photo-768125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-image: url(resources/images/searchCust.png);
    
     background-position: center center;
     
@@ -35,7 +35,7 @@
     background-attachment: fixed;
   };
 
- 
+
  .container {
     position: relative;
     top: -200px; /* Adjust this value to move the card up */
@@ -61,6 +61,11 @@
     .toast-error {
       background-color: red;
     }
+    button {
+  background-color: #6c5ce7 !important
+   ; border-color: #6c5ce7 !important ;
+   color: black !important;
+}
 </style>
 </head>
 <body>
@@ -256,74 +261,69 @@
 
 
 
-        <!-- <div>
-            <label for="cust_name">Customer Name:</label>
-            <input type="text" id="cust_name" placeholder="Enter customer name">
-            <button onclick="searchCustomer()">Search</button>
-        </div> -->
-        <div style="position: relative ;top: -10px;right: -200px;" id="customerDetails"></div>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+         <div style="position: relative ;top: -10px;right: -200px;" id="customerDetails"></div>
+       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
-          function searchCustomer() {
-              const formData = new FormData();
-              formData.append("cust_name", document.getElementById("cust_name").value);
-              
-              // Construct the complete URL including the server address and port
-              const serverUrl = 'http://127.0.0.1:5000'; // Update with your server URL
-              const searchCustUrl = `${serverUrl}/searchCust`;
-              
-              axios.post(searchCustUrl, formData)
-                  .then(response => {
-                      const customerDetails = document.getElementById("customerDetails");
-                      customerDetails.innerHTML = ''; // Clear previous results
-                      
-                      if (response.data.error) {
-                          customerDetails.innerHTML = `<p>${response.data.error}</p>`;
-                      } else {
-                          const customer = response.data;
-                          const customerId = customer.id;
-                          const customerName = customer.name;
-                          const customerCity = customer.city;
-                          const customerAge = customer.age;
-                          
-                          const customerHTML = `
-                          <div class="container" >
-    <div class="row text-center">
-
-        <!-- Team item -->
-        <div class="col-xl-3 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><img  src="https://i.pinimg.com/736x/86/00/80/860080423e7bb6ecc5b743f95b12a54f.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                <h5 class="mb-0">${customerName}</h5><span class="small text-uppercase text-muted">  ID: ${customerId}  <br>
-                              City: ${customerCity} <br>
-                              Age: ${customerAge}</span>
-                <ul class="social mb-0 list-inline mt-3">
+function searchCustomer() {
+  const customerDetails = document.getElementById("customerDetails");
+  customerDetails.innerHTML = ''
+    const formData = new FormData();
+    formData.append("cust_name", document.getElementById("cust_name").value);
+    
+    // Construct the complete URL including the server address and port
+    const serverUrl = 'http://127.0.0.1:5000'; // Update with your server URL
+    const searchCustUrl = `${serverUrl}/searchCust`;
+    
+    axios.post(searchCustUrl, formData)
+        .then(response => {
+            if (response.data.error) {
+                // Displaying the error message using Toastify
+                Toastify({
+                    text: response.data.error,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #FF416C, #FF4B2B)",
+                    className: "toast-error"
+                }).showToast();
+            } else {
+                const customer = response.data;
+                const customerId = customer.id;
+                const customerName = customer.name;
+                const customerCity = customer.city;
+                const customerAge = customer.age;
                 
-                </ul>
-            </div>
-        </div>
-        
-                            
+                const customerHTML = `
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="col-xl-3 col-sm-6 mb-5">
+                                <div class="bg-white rounded shadow-sm py-5 px-4">
+                                    <img src="https://i.pinimg.com/736x/86/00/80/860080423e7bb6ecc5b743f95b12a54f.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                                    <h5 class="mb-0">${customerName}</h5>
+                                    <span class="small text-uppercase text-muted">ID: ${customerId} <br> City: ${customerCity} <br> Age: ${customerAge}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                
+               
+                customerDetails.innerHTML = customerHTML;
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
 
 
-                             
-                          `;
-                          
-                          customerDetails.innerHTML = customerHTML;
-                      }
-                  })
-                  .catch(error => {
-                      console.error(error);
-                  });
-          }
+
       </script>
       
 
      
-      <!-- <h2>Customer Details</h2>
-      <p>ID: ${customerId}</p>
-      <p>Name: ${customerName}</p>
-      <p>City: ${customerCity}</p>
-      <p>Age: ${customerAge}</p> -->
+    
 
 <script src="resources/scripts/nav.js"></script>
 <script src="resources/scripts/main.js"></script>

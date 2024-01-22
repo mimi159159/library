@@ -40,6 +40,9 @@
   .toast-error {
     background-color: red;
   }
+  body {
+    background-image: url(https://files.oaiusercontent.com/file-nOWQQ61yCQIrDFNSc6ry024y?se=2024-01-22T12%3A54%3A44Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D7d514a04-0cdb-4d40-8c23-8a97e0a9fa4d.webp&sig=XU2AGTC2xWE5NdDnAjAKT4IP1RPK4/JKxhbiSSeW6As%3D);
+  }
 </style>
 </head>
 <body>
@@ -281,7 +284,7 @@ contactInfoElement.innerHTML = `
         <div class="padding">
             <div class="row container d-flex justify-content-center">
                 <div class="col-xl-6 col-md-12">
-                    <div class="card user-card-full">
+                    <div class="card user-card-full transparent-black-bg">
                         <div class="row m-l-0 m-r-0">
                             <div class="col-sm-4 bg-c-lite-green user-profile">
                                 <div class="card-block text-center text-white">
@@ -359,126 +362,6 @@ document.addEventListener('DOMContentLoaded', function () {
     profile();
 });
 document.getElementById('profileButton').addEventListener('click', profile);
-
-
-// const token = sessionStorage.getItem("access_token");
-// const MY_SERVER = 'http://127.0.0.1:5000';
-
-// function profile() {
-//     const token = sessionStorage.getItem("access_token");
-
-//     axios.get(`${MY_SERVER}/profile`, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     })
-//     .then(function (response) {
-//         const userData = response.data[0];
-       
-       
-//         const user = userData.username
-//         const id = userData.id
-//         const customer_name  = userData.customer_name
-//         const role = userData.role 
-       
-//         const bookData = response.data[1]
-        
-//         const bookName = bookData.book_name
-//         const loandate = bookData. loan_date
-//         const retuendate = bookData. return_date
-        
-
-//         const custData = response.data[2]
-    
-//         const city = custData.city
-//     console.log(city);
-//         const age = custData.age
-//         console.log(age);
-  
-     
-//         const contactInfoElement = document.getElementById('info');
-// contactInfoElement.innerHTML = `
-//     <div class="page-content page-container" id="page-content">
-//         <div class="padding">
-//             <div class="row container d-flex justify-content-center">
-//                 <div class="col-xl-6 col-md-12">
-//                     <div class="card user-card-full">
-//                         <div class="row m-l-0 m-r-0">
-//                             <div class="col-sm-4 bg-c-lite-green user-profile">
-//                                 <div class="card-block text-center text-white">
-//                                     <div class="m-b-25">
-//                                         <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
-//                                     </div>
-//                                     <h6 class="f-w-600">${customer_name}</h6>
-//                                     <p>${role}</p>
-//                                     <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-//                                 </div>
-//                             </div>
-//                             <div class="col-sm-8">
-//                                 <div class="card-block">
-//                                     <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-//                                     <div class="row">
-//                                         <div class="col-sm-6">
-//                                             <p class="m-b-10 f-w-600">username</p>
-//                                             <h6 class="text-muted f-w-400">${user}</h6>
-//                                         </div>
-//                                         <div class="col-sm-6">
-//                                             <p class="m-b-10 f-w-600">user id</p>
-//                                             <h6 class="text-muted f-w-400">${id}</h6>
-//                                         </div>
-//                                         <div class="col-sm-6">
-//                                             <p class="m-b-10 f-w-600">city</p>
-//                                             <h6 class="text-muted f-w-400">${city}</h6>
-//                                         </div>
-//                                         <div class="col-sm-6">
-//                                             <p class="m-b-10 f-w-600">age</p>
-//                                             <h6 class="text-muted f-w-400"> ${age}</h6>
-//                                         </div>
-//                                     </div>
-//                                     <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">loans info</h6>
-//                                                                 <div class="row">
-//                                                                     <div class="col-sm-6">
-//                                                                         <p class="m-b-10 f-w-600">book name</p>
-//                                                                         <h6 class="text-muted f-w-400"> ${bookName}</h6>
-//                                                                     </div>
-//                                                                     <div class="col-sm-6">
-//                                                                         <p class="m-b-10 f-w-600">loan date</p>
-//                                                                         <h6 class="text-muted f-w-400">${loandate}</h6>
-//                                                                         </div>
-//                                                                         <div class="col-sm-6">
-//                                                                         <p class="m-b-10 f-w-600">return date</p>
-//                                                                         <h6 class="text-muted f-w-400">${retuendate}</h6>
-//                                         </div>
-//                                      </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// `;
-
-
-
-
-
-
-  
-//     })
-//     .catch(function (error) {
-//         console.error('Error fetching user data:', error);
-//     });
-// }
-
-// // Call the profile function when the page loads
-// profile();
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Your code to access and modify DOM elements here
-//     profile();
-// });
 
 
 

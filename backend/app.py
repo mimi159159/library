@@ -41,12 +41,12 @@ jwt = JWTManager(app)
 
 # Get the directory where app.py is located
 app_directory = os.path.dirname(__file__)
-app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif','webp'}
 
 def allowed_file(filename):
-    print("filename:",filename)
+    # print("filename:",filename)
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
@@ -197,7 +197,7 @@ def allBooks():
                  "year_published": book.year_published,
                  "type": book.type,
                  'image_path':book.image_path  } for book in books.query.all()]
-    
+    # print(allBooks)
     return jsonify(allBooks)
 
 
@@ -306,14 +306,14 @@ def addBook():
       if existing_book:
                    return jsonify({'error': "Book already exists"})
     #   if 'image' in request.files:
-      image_file= None
+      image_file= 'uploads/books_DEFAULT.webp'
       image_path = request.files.get('image', None)
-      print("image_path:", image_path)
+    #   print("image_path:", image_path)
       if image_path and allowed_file(image_path.filename):
-                print("inside if")
+                # print("inside if")
                 # Generate a secure filename and save the image
                 filename = secure_filename(image_path.filename)
-                print("filename:", filename)
+                # print("filename:", filename)
                 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
                 image_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 image_path.save(image_file)
@@ -410,7 +410,7 @@ def returnBook():
         3: 2
     }
     max_return_date = loan.loandate + timedelta(days=max_loan_days[book.type])
-    print(max_return_date)
+    # print(max_return_date)
 
     if return_date > max_return_date:
         # print(">>>>>>>>>>>>>>>>>>>> in ")
@@ -462,7 +462,7 @@ def searchCust():
 @app.route('/searchBook', methods=['POST'])
 def searchBook():
     book_name = request.form.get("book_name")
-    print("recived book: ", book_name)
+    
     book = books.query.filter(func.lower(books.name) == func.lower(book_name)).first()
     
     if book:

@@ -240,16 +240,7 @@
           </div>
       </div>
 
-        <!-- <h1>Loan a Book</h1>
-    <form id="loan-book-form" method="post">
-        <label for="customer">Customer Name:</label>
-        <input type="text" id="customer" name="customer" required><br><br>
-        
-        <label for="book">Book Name:</label>
-        <input type="text" id="book" name="book" required><br><br>
-        
-        <button type="submit">Loan Book</button>
-    </form> -->
+    
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -324,59 +315,6 @@ form.addEventListener('submit', function (event) {
 
 
 
-//     const token = sessionStorage.getItem("access_token");
-// const LoanBook = (event) => {
-//     const token = sessionStorage.getItem("access_token");
-
-//     // Check if a valid token exists
-//     if (!token) {
-//         alert("You must be logged in to add a customer.");
-//         // Redirect to the login page or take appropriate action
-//         // window.location.href = "login.html";
-//         return; // Exit the function if no token is found
-//     }
-
-
-//     event.preventDefault();
-
-//     const customer = document.getElementById('customer').value;
-//     const book = document.getElementById('book').value;
-    
-    
-
-
-//     const formData = new FormData();
-//     formData.append('customer', customer);
-//     formData.append('book', book);
- 
-//          axios.post(`${MY_SERVER}/loanBook`, formData, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     })
-//     .then(function (response) {
-//         if (response.status === 200) {
-//             // Customer added successfully, handle accordingly
-//             console.log(response.data);
-//             alert('loaned the book successfully');
-//             // You can also reset the form if needed: form.reset();
-//         } else {
-//             // Handle other successful status codes or situations
-//         }
-//     })
-//     .catch(function (error) {
-//         console.error(error);
-//         alert('Failed to loan a book: ' + error.response.data.message);
-//     });
-// };
-
-
-
-// const form = document.querySelector('#loan-book-form');
-// // form.addEventListener('submit', LoanBook);
-// form.addEventListener('submit', function (event) {
-//     event.preventDefault();
-//     LoanBook(event);})
     </script>
 
 <script src="resources/scripts/nav.js"></script>

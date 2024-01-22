@@ -334,42 +334,6 @@ returnBookForm.addEventListener('submit', function (event) {
 
 
 
-    // const token = sessionStorage.getItem("access_token");
-    // const returnBookForm = document.getElementById('return-book-form');
-
-    // returnBookForm.addEventListener('submit', function (event) {
-    //   event.preventDefault();
-
-    //   // Check if a valid token exists
-    //   if (!token) {
-    //     alert("You must be logged in to return a book.");
-    //     // Redirect to the login page or take appropriate action
-    //     // window.location.href = "login.html";
-    //     return; // Exit the function if no token is found
-    //   }
-
-    //   const customerName = document.getElementById('customer_name').value;
-    //   const bookName = document.getElementById('book_name').value;
-    //   const returnDate = document.getElementById('return_date').value; // Get return date value
-
-    //   const formData = new FormData();
-    //   formData.append('customer_name', customerName);
-    //   formData.append('book_name', bookName);
-    //   formData.append('return_date', returnDate); // Append return date to the form data
-
-    //   axios.post('http://127.0.0.1:5000/returnBook', formData, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`
-    //     }
-    //   })
-    //     .then(function (response) {
-    //       alert("Book returned successfully");
-    //       returnBookForm.reset();
-    //     })
-    //     .catch(function (error) {
-    //       console.error('Error returning book:', error);
-    //     });
-    // });
   </script>
   <script src="resources/scripts/nav.js"></script>
 </body>

@@ -135,3 +135,8 @@ p {
 }
 
 
+.transparent-black-bg {
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    color: white; /* Change text color to white for better readability */
+    border-radius: 10px; /* Optional: adds rounded corners to the card */
+}

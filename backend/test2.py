@@ -269,6 +269,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-# TODO
-# make sure addCustomer is still working from the frontend because we deleted the token code
-# create more tests

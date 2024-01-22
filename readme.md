@@ -44,6 +44,11 @@ Before running the application, make sure you have the following dependencies in
 - SQLAlchemy==2.0.25
 - typing_extensions==4.9.0
 - Werkzeug==3.0.1
+- urllib3==2.1.0
+- requests==2.31.0
+- idna==3.6
+- charset-normalizer==3.3.2
+- certifi==2023.11.17
 
 
 You can install these dependencies using pip:
@@ -88,6 +93,14 @@ The application should now be running locally at http://localhost:5000.
 - `GET /profile`: Retrieve user profile information (requires authentication).
 
 Please refer to the `app.py` file for detailed information on each endpoint's functionality and request/response format.
+
+## unit test
+- file name= test2.py
+- to run test : py test2.py + py app.py 
+- run together with app.py 
+
+
+
 
 ## License
 
