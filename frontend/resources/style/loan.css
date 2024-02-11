@@ -2,10 +2,11 @@ body {
     color: #000;
     overflow-x: hidden;
     height: 100%;
-    background-image: url("https://files.oaiusercontent.com/file-LDcvatkNGxSDVbEuSiAOR5Wb?se=2024-01-21T18%3A48%3A39Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3Da57b3d3e-d08a-4d8e-9266-d7e1a535e0ff.webp&sig=RbjJGS9b4wN17lmk1C9sf2CXkjWdCmgA%2BiZDAixFdWw%3D");
+    background-image: url("../images/loanBook.png");
     background-repeat: no-repeat;
     /* background-size: 100% 100%; */
     background-size: cover;
+    background-position: center center;
 }
 
 .card {
