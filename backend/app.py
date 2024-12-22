@@ -97,7 +97,7 @@ class late_loan(db.Model):
 
 @app.route('/')
 def hello():
-    return "hello"
+    return "to enter the full project please open index.html on browser "
 
 # Generate a JWT
 def generate_token(user_id):
