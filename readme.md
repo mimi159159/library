@@ -71,7 +71,8 @@ pip install -r requirements.txt
 
 
 4. Run the application:
-python app.py
+   cd backhand
+   python app.py
 
 
 The application should now be running locally at http://localhost:5000.
