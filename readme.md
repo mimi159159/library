@@ -100,6 +100,8 @@ pip install -r requirements.txt
    cd backhand
    python app.py
 
+5. go to the frontend folder and open file index.html with browser
+
 
 The application should now be running locally at http://localhost:5000.
 
